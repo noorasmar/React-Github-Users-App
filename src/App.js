@@ -1,23 +1,56 @@
-import logo from './logo.svg';
+import { useEffect, useState } from 'react';
+import SearchForm from './components/SearchForm';
+import UsersList from './components/UsersList';
 import './App.css';
 
 function App() {
+  // const users = [{
+  //   id: 29193677,
+  //   name: 'Noor Asmar',
+  //   avatar_url: 'https://avatars.githubusercontent.com/u/29193677?v=4',
+  //   location: 'Palestine',
+  //   bio: 'I am a Front End Developer, using React.js',
+  //   public_repos: 10,
+  //   followers: 10,
+  //   following: 20,
+  //   html_url: 'https://github.com/noorasmar'
+  // },{
+  //   id: 29194677,
+  //   name: 'Noor Asmar',
+  //   avatar_url: 'https://avatars.githubusercontent.com/u/29193677?v=4',
+  //   location: 'Palestine',
+  //   bio: 'I am a Front End Developer, using React.js',
+  //   public_repos: 10,
+  //   followers: 10,
+  //   following: 20,
+  //   html_url: 'https://github.com/noorasmar'
+  // },{
+  //   id: 29193877,
+  //   name: 'Noor Asmar',
+  //   avatar_url: 'https://avatars.githubusercontent.com/u/29193677?v=4',
+  //   location: 'Palestine',
+  //   bio: 'I am a Front End Developer, using React.js',
+  //   public_repos: 10,
+  //   followers: 10,
+  //   following: 20,
+  //   html_url: 'https://github.com/noorasmar'
+  // }]
+
+  const [users, setUsers] = useState([])
+
+  useEffect(() => {
+    fetch("https://api.github.com/users")
+    .then(response => response.json())
+    .then(data => setUsers(data))
+  },[])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>
+        Github Users App
+      </h1>
+      <SearchForm />
+      <UsersList users={users}/>
     </div>
   );
 }
